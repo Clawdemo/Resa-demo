@@ -2,10 +2,158 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Bot-Demo</title>
+  <title>Bot-Demo für Unternehmen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 0 16px;
+      line-height: 1.5;
+    }
+
+    #bot-container {
+      border: 1px solid #ccc;
+      padding: 16px;
+      margin-top: 20px;
+      max-width: 420px;
+    }
+
+    .bot-message {
+      margin-bottom: 12px;
+    }
+
+    .user-options button {
+      margin: 4px 4px 4px 0;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    hr {
+      margin: 32px 0;
+    }
+  </style>
 </head>
 <body>
-  <h1>Willkommen zur Bot-Demo</h1>
-  <p>Hier entsteht eine Live-Demo.</p>
+
+  <h1>Automatisierte Bots für Schweizer Unternehmen</h1>
+
+  <p>
+    Diese Seite zeigt eine <strong>Live-Demo</strong>, wie ein Bot
+    Anfragen entgegennimmt, strukturiert und vorbereitet.
+  </p>
+
+  <p>
+    Der Bot unten ist bewusst einfach gehalten – so kannst du
+    den Ablauf verstehen, bevor echte KI eingebunden wird.
+  </p>
+
+  <hr>
+
+  <h2>Live-Demo</h2>
+
+  <div id="bot-container">
+    <div id="chat">
+      <div class="bot-message">
+        <strong>Bot:</strong> Hallo! Was möchtest du sehen?
+      </div>
+    </div>
+
+    <div class="user-options" id="options">
+      <button onclick="showSupport()">Support-Bot</button>
+      <button onclick="showLead()">Lead-Qualifizierung</button>
+      <button onclick="showWissen()">Interner Wissensbot</button>
+    </div>
+  </div>
+
+  <p><small>Hinweis: Bitte keine sensiblen Daten eingeben.</small></p>
+
+  <hr>
+
+  <h2>Was dieser Bot zeigt</h2>
+  <ul>
+    <li>Geführte Gespräche statt freier Chat</li>
+    <li>Klare Struktur für Kundenanfragen</li>
+    <li>Übergabe an menschliche Beratung</li>
+  </ul>
+
+  <script>
+    const chat = document.getElementById("chat");
+    const options = document.getElementById("options");
+
+    function clearOptions() {
+      options.innerHTML = "";
+    }
+
+    function addBotMessage(text) {
+      const div = document.createElement("div");
+      div.className = "bot-message";
+      div.innerHTML = "<strong>Bot:</strong> " + text;
+      chat.appendChild(div);
+    }
+
+    function showSupport() {
+      clearOptions();
+      addBotMessage(
+        "Ich bin ein Support-Bot. Ich beantworte häufige Fragen, leite Anfragen weiter und entlaste dein Team."
+      );
+      addBotMessage(
+        "Typische Einsatzbereiche: Öffnungszeiten, Termine, einfache Kundenanliegen."
+      );
+      showExit();
+    }
+
+    function showLead() {
+      clearOptions();
+      addBotMessage(
+        "Ich bin ein Lead-Qualifizierungs-Bot. Ich stelle gezielte Fragen und filtere ernsthafte Anfragen."
+      );
+      addBotMessage(
+        "So sparst du Zeit und sprichst nur mit passenden Interessenten."
+      );
+      showExit();
+    }
+
+    function showWissen() {
+      clearOptions();
+      addBotMessage(
+        "Ich bin ein interner Wissensbot. Mitarbeitende können mir Fragen zu Prozessen und Dokumenten stellen."
+      );
+      addBotMessage(
+        "Ideal für Onboarding, SOPs und interne Abläufe."
+      );
+      showExit();
+    }
+
+    function showExit() {
+      options.innerHTML = `
+        <button onclick="restart()">Zurück zur Auswahl</button>
+        <button onclick="contact()">Beratung anfragen</button>
+      `;
+    }
+
+    function restart() {
+      chat.innerHTML = `
+        <div class="bot-message">
+          <strong>Bot:</strong> Hallo! Was möchtest du sehen?
+        </div>
+      `;
+      options.innerHTML = `
+        <button onclick="showSupport()">Support-Bot</button>
+        <button onclick="showLead()">Lead-Qualifizierung</button>
+        <button onclick="showWissen()">Interner Wissensbot</button>
+      `;
+    }
+
+    function contact() {
+      clearOptions();
+      addBotMessage(
+        "Danke für dein Interesse. In der echten Version würde hier ein Kontaktformular oder Termin-Link folgen."
+      );
+    }
+  </script>
+
 </body>
 </html>
