@@ -293,13 +293,41 @@ function afterSubmit(event) {
 
    options.innerHTML = `
     <button onclick="restart()">Zurück zum Anfang</button>
-    <button onclick="buyBot()">Agent direkt bestellen</button>
+    <button onclick="buyBot()">Angebot für operativen Agenten anfragen</button>
   `;
 }
   
 function buyBot() {
-  window.location.href =
-    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Agent direkt bestellen&body=Ich möchte den Agent direkt bestellen.";
+  const subject = encodeURIComponent("Anfrage: Operativer Agent für unser Unternehmen");
+
+  const body = encodeURIComponent(
+`Guten Tag
+
+Wir interessieren uns für den Einsatz eines operativen Agenten in unserem Unternehmen.
+
+Bitte kontaktieren Sie uns für ein unverbindliches Angebot.
+
+Unternehmensname:
+Branche:
+Anzahl Mitarbeitende:
+Geplanter Einsatzbereich (z. B. Administration, Support, interne Abläufe):
+
+Kurzbeschreibung der Aufgaben, die der Agent übernehmen soll:
+
+
+Bevorzugte Kontaktaufnahme:
+☐ E-Mail
+☐ Telefon
+☐ Video-Call (z. B. Microsoft Teams)
+
+Kontaktperson:
+Telefonnummer (optional):
+
+Freundliche Grüsse
+`
+  );
+
+  window.location.href = `mailto:DEINEEMAIL@DOMAIN.CH?subject=${subject}&body=${body}`;
 }
 
 function startDemo() {
