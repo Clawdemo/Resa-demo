@@ -226,13 +226,15 @@ function goal(g) {
   data.goal = g;
   clear();
 
-  // 1) Use-Case-spezifische Bewertung
-  if (!data.evaluation) {
+  // Ziel bestimmt die Bewertung
+  const goalEvaluation = evaluations[data.goal];
+  
+  if (goalEvaluation) {
+    say(goalEvaluation[0]);
+    say(goalEvaluation[1]);
+  } else {
     say("Dieser Anwendungsfall wird individuell bewertet.");
     say("Der konkrete Nutzen hängt von den vorhandenen Prozessen ab.");
-  } else {
-    say(data.evaluation[0]);
-    say(data.evaluation[1]);
   }
 
   // 2) Allgemeine Einordnung NUR für operativen Agenten
