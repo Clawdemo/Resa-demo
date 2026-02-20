@@ -250,10 +250,11 @@ function goal(g) {
     <button onclick="restart()">Beenden</button>
   `;
 }
+  
 function lead() {
   clear();
   say("Bitte geben Sie Ihren Namen und Ihre E-Mail-Adresse an.");
-  say("Ich melde mich bei Ihnen, um einen Termin für eine persönliche Live-Demo zu vereinbaren.");
+  say("Im nächsten Schritt können Sie wählen, ob Sie eine persönliche Live-Demo wünschen oder ein unverbindliches Angebot anfragen möchten.");
 
   options.innerHTML = `
     <form onsubmit="afterSubmit(event)" action="FORM_ACTION_HIER_EINSETZEN" method="POST">
@@ -265,7 +266,7 @@ function lead() {
       <input name="Name" placeholder="Name" required>
       <input name="Email" type="email" placeholder="E-Mail" required>
 
-      <button type="submit">Termin für Live-Demo anfragen</button>
+      <button type="submit">Weiter</button>
     </form>
   `;
 }
