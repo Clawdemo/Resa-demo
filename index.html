@@ -298,21 +298,24 @@ function afterSubmit(event) {
 }
   
 function buyBot() {
-  const subject = encodeURIComponent("Anfrage: Operativer Agent für unser Unternehmen");
+  const subject = encodeURIComponent(
+    "Anfrage: Operativer Agent für unser Unternehmen"
+  );
 
   const body = encodeURIComponent(
 `Guten Tag
 
 Wir interessieren uns für den Einsatz eines operativen Agenten in unserem Unternehmen.
 
-Bitte kontaktieren Sie uns für ein unverbindliches Angebot.
+Die folgenden Angaben wurden im Demo-Ablauf erfasst und können bei Bedarf angepasst werden.
 
 Unternehmensname:
-Branche:
-Anzahl Mitarbeitende:
-Geplanter Einsatzbereich (z. B. Administration, Support, interne Abläufe):
+Branche: ${data.branch || ""}
+Unternehmensgrösse: ${data.size || ""}
+Primärer Anwendungsfall: ${data.usecase || ""}
+Konkretes Ziel: ${data.goal || ""}
 
-Kurzbeschreibung der Aufgaben, die der Agent übernehmen soll:
+Geplanter Einsatzbereich / Aufgabenbeschreibung:
 
 
 Bevorzugte Kontaktaufnahme:
@@ -327,7 +330,8 @@ Freundliche Grüsse
 `
   );
 
-  window.location.href = `mailto:DEINEEMAIL@DOMAIN.CH?subject=${subject}&body=${body}`;
+  window.location.href =
+    `mailto:DEINEEMAIL@DOMAIN.CH?subject=${subject}&body=${body}`;
 }
 
 function startDemo() {
