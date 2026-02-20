@@ -125,15 +125,16 @@
 <div id="bot">
   <button class="reset" onclick="restart()">Zurück zum Anfang</button>
   <div id="chat">
-    <div class="msg"><strong>Bot:</strong> Guten Tag.<br>
-Ich zeige strukturierte Anwendungsfälle für den Einsatz von Bots in Unternehmen.<br>
-Welchen Anwendungsfall möchten Sie betrachten?</div>
+    <div class="msg"><strong>Bot:</strong> Guten Tag.<br><br>
+    OpenClaw ist ein operativer Agent für administrative und unterstützende Aufgaben in Unternehmen.<br><br>
+    Er übernimmt klar definierte Tätigkeiten selbstständig, arbeitet regelbasiert und dokumentiert jeden Schritt.<br><br>
+    Möchten Sie sehen, wie dieser Agent arbeitet,<br>
+    oder zunächst bekannte Teilanwendungen betrachten?</div>
   </div>
 
   <div id="options">
-    <button onclick="useCase('Support')">Support-Bot</button>
-    <button onclick="useCase('Leads')">Lead-Qualifizierung</button>
-    <button onclick="useCase('Wissen')">Interner Wissensbot</button>
+    <button onclick="useCase('Operativ')">Operativer Agent (Administration & Support)</button>
+    <button onclick="showBasic()">Bekannte Teilanwendungen anzeigen</button>
   </div>
 </div>
 
@@ -144,6 +145,21 @@ const chat = document.getElementById("chat");
 const options = document.getElementById("options");
 
 let data = {};
+
+const evaluations = {
+  Support: [
+    "Für Support-Anfragen ist ein Bot häufig sinnvoll, wenn viele ähnliche Fragen wiederholt auftreten.",
+    "Der Nutzen steigt, sobald einfache Anfragen regelmässig Mitarbeitende binden."
+  ],
+  Leads: [
+    "Für die Vorqualifizierung von Anfragen ist ein Bot sinnvoll, wenn viele Kontakte ungefiltert eingehen.",
+    "Der Nutzen liegt vor allem in der Trennung von relevanten und irrelevanten Anfragen."
+  ],
+  Wissen: [
+    "Für internes Wissen ist ein Bot sinnvoll, wenn Informationen häufig gesucht, aber schwer auffindbar sind.",
+    "Der Nutzen zeigt sich besonders bei Onboarding und wiederkehrenden internen Fragen."
+  ]
+};  
 
 function say(text) {
   const d = document.createElement("div");
@@ -156,8 +172,15 @@ function clear() { options.innerHTML = ""; }
 
 function useCase(type) {
   data.usecase = type;
+  data.evaluation = evaluations[type];
   clear();
-  say(`Alles klar. Für welche Branche arbeiten Sie?`);
+  if (type === "Operativ") {
+    say("Der operative Agent übernimmt klar definierte administrative Aufgaben, die sonst manuell ausgeführt werden.");
+    say("Er arbeitet kanalübergreifend, führt Aufgaben nach festen Regeln aus und eskaliert bei Unklarheiten.");
+    say("Typische Aufgaben sind zum Beispiel:");
+    say("– E-Mails bearbeiten oder weiterleiten<br>– Telefonanfragen zuordnen<br>– Dokumente ablegen oder weiterreichen<br>– Aufgaben oder Tickets regelbasiert ausführen");
+  }
+  say("Für welche Branche arbeiten Sie?");
   options.innerHTML = `
     <button onclick="branch('Dienstleistung')">Dienstleistung</button>
     <button onclick="branch('Beratung')">Beratung</button>
@@ -190,9 +213,13 @@ function size(s) {
 function goal(g) {
   data.goal = g;
   clear();
-  say("Für diesen Anwendungsfall ist ein Bot in vielen Unternehmen sinnvoll, wenn wiederkehrende Abläufe oder klar strukturierte Fragen bestehen.");
-  say("Ob sich der Einsatz lohnt, hängt vom tatsächlichen Volumen und der Standardisierbarkeit ab.");
-  say("Möchten Sie den nächsten Schritt gehen?");
+  say(data.evaluation[0]);
+  say(data.evaluation[1]);
+
+  say("Der Einsatz eines operativen Agenten ist in vielen Unternehmen sinnvoll,");
+  say("wenn wiederkehrende Aufgaben klar strukturiert sind und regelbasiert ausgeführt werden können.");
+  say("Ob sich der Einsatz lohnt, hängt vom tatsächlichen Volumen und der Standardisierbarkeit der Abläufe ab.");
+
   options.innerHTML = `
     <button onclick="lead()">Live-Demo mit echtem Bot ansehen</button>
     <button onclick="restart()">Beenden</button>
@@ -219,7 +246,7 @@ function lead() {
 }
 
 function restart() {
-  chat.innerHTML = `<div class="msg"><strong>Bot:</strong> Guten Tag. Welchen Anwendungsfall möchten Sie betrachten?</div>`;
+  chat.innerHTML = `<div class="msg"><strong>Bot:</strong> Guten Tag.<br>Wie möchten Sie fortfahren?</div>`;
   options.innerHTML = `
     <button onclick="useCase('Support')">Support-Bot</button>
     <button onclick="useCase('Leads')">Lead-Qualifizierung</button>
@@ -257,6 +284,18 @@ function buyBot() {
 
 function startDemo() {
   say("Danke für Ihr Interesse.");
+}
+
+function showBasic() {
+  clear();
+  say("Viele Unternehmen kennen Bots bereits aus einzelnen, klar abgegrenzten Bereichen.");
+  say("Diese Funktionen sind Teil des operativen Agenten, decken aber jeweils nur einen Teil des Gesamtsystems ab.");
+
+  options.innerHTML = `
+    <button onclick="useCase('Support')">Website-Support</button>
+    <button onclick="useCase('Leads')">Lead-Qualifizierung</button>
+    <button onclick="useCase('Wissen')">Internes Wissen</button>
+  `;
 }
 </script>
 
