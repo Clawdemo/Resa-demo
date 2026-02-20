@@ -124,13 +124,7 @@
 
 <div id="bot">
   <button class="reset" onclick="restart()">Zurück zum Anfang</button>
-  <div id="chat">
-    <div class="msg"><strong>Bot:</strong> Guten Tag.<br><br>
-    <strong>Bot:</strong> OpenClaw ist ein operativer Agent für administrative und unterstützende Aufgaben in Unternehmen.<br><br>
-    <strong>Bot:</strong> Er übernimmt klar definierte Tätigkeiten selbstständig, arbeitet regelbasiert und dokumentiert jeden Schritt.<br><br>
-    <strong>Bot:</strong> Möchten Sie sehen, wie dieser Agent arbeitet,<br>
-    oder zunächst bekannte Teilanwendungen betrachten?</div>
-  </div>
+ <div id="chat"></div>
 
   <div id="options">
     <button onclick="useCase('Operativ')">Operativer Agent (Administration & Support)</button>
@@ -141,6 +135,20 @@
 <p><small>Bitte keine sensiblen Daten eingeben.</small></p>
 
 <script>
+function start() {
+  chat.innerHTML = `
+    <div class="msg"><strong>Bot:</strong> Guten Tag.<br><br>
+    <strong>Bot:</strong> OpenClaw ist ein operativer Agent für administrative und unterstützende Aufgaben in Unternehmen.<br><br>
+    <strong>Bot:</strong> Er übernimmt klar definierte Tätigkeiten selbstständig, arbeitet regelbasiert und dokumentiert jeden Schritt.<br><br>
+    <strong>Bot:</strong> Möchten Sie sehen, wie dieser Agent arbeitet,<br>
+    oder zunächst bekannte Teilanwendungen betrachten?</div>
+  `;
+
+  options.innerHTML = `
+    <button onclick="useCase('Operativ')">Operativer Agent (Administration & Support)</button>
+    <button onclick="showBasic()">Bekannte Teilanwendungen anzeigen</button>
+  `;
+}
 const chat = document.getElementById("chat");
 const options = document.getElementById("options");
 
@@ -255,12 +263,8 @@ function lead() {
 }
 
 function restart() {
-  chat.innerHTML = `<div class="msg"><strong>Bot:</strong> Guten Tag.<br>Wie möchten Sie fortfahren?</div>`;
-  options.innerHTML = `
-    <button onclick="useCase('Support')">Support-Bot</button>
-    <button onclick="useCase('Leads')">Lead-Qualifizierung</button>
-    <button onclick="useCase('Wissen')">Interner Wissensbot</button>
-  `;
+  data = {};
+  start();
 }
   
 function afterSubmit(event) {
@@ -306,6 +310,7 @@ function showBasic() {
     <button onclick="useCase('Wissen')">Internes Wissen</button>
   `;
 }
+start();
 </script>
 
 </body>
