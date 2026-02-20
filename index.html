@@ -252,7 +252,8 @@ function goal(g) {
 }
 function lead() {
   clear();
-  say("Bitte geben Sie Ihren Namen und Ihre E-Mail-Adresse an. Ich sende Ihnen den Zugang zur Live-Demo.");
+  say("Bitte geben Sie Ihren Namen und Ihre E-Mail-Adresse an.");
+  say("Ich melde mich bei Ihnen, um einen Termin für eine persönliche Live-Demo zu vereinbaren.");
 
   options.innerHTML = `
     <form onsubmit="afterSubmit(event)" action="FORM_ACTION_HIER_EINSETZEN" method="POST">
@@ -264,7 +265,7 @@ function lead() {
       <input name="Name" placeholder="Name" required>
       <input name="Email" type="email" placeholder="E-Mail" required>
 
-      <button type="submit">Demo-Link erhalten</button>
+      <button type="submit">Termin für Live-Demo anfragen</button>
     </form>
   `;
 }
@@ -287,13 +288,12 @@ function afterSubmit(event) {
 
   options.innerHTML = "";
   say("Vielen Dank.");
-  say("Sie erhalten einen Zugang zur Live-Demo.");
-  say("Alternativ kann der Bot auch direkt für Ihr Unternehmen eingerichtet werden.");
-  say("Eine Beratung ist optional.");
+  say("Ich melde mich bei Ihnen, um einen Termin für eine persönliche Live-Demo zu vereinbaren.");
+  say("Die Demo findet virtuell statt.");
 
-  options.innerHTML = `
-    <button onclick="startDemo()">Live-Demo starten</button>
-    <button onclick="buyBot()">Bot direkt bestellen</button>
+   options.innerHTML = `
+    <button onclick="restart()">Zurück zum Anfang</button>
+    <button onclick="buyBot()">Agent direkt beauftragen</button>
   `;
 }
   
