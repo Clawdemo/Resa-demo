@@ -312,9 +312,39 @@ function showBasic() {
   say("Diese Funktionen sind Teil des operativen Agenten, decken aber jeweils nur einen Teil des Gesamtsystems ab.");
 
   options.innerHTML = `
-    <button onclick="useCase('Support')">Website-Support</button>
-    <button onclick="useCase('Leads')">Lead-Qualifizierung</button>
-    <button onclick="useCase('Wissen')">Internes Wissen</button>
+    <button onclick="basicCase('Support')">Website-Support</button>
+    <button onclick="basicCase('Leads')">Lead-Qualifizierung</button>
+    <button onclick="basicCase('Wissen')">Internes Wissen</button>
+  `;
+}
+
+function basicCase(type) {
+  data.usecase = type;
+  data.goal = type;
+  clear();
+
+  // Erklärung
+  if (type === "Support") {
+    say("Ein Website-Support-Bot beantwortet wiederkehrende Kundenanfragen, zum Beispiel zu Öffnungszeiten oder Terminen.");
+  }
+  if (type === "Leads") {
+    say("Ein Lead-Qualifizierungs-Bot stellt strukturierte Fragen und filtert ungeeignete Anfragen.");
+  }
+  if (type === "Wissen") {
+    say("Ein interner Wissensbot beantwortet Fragen zu Prozessen und Dokumenten.");
+  }
+
+  // Bewertung
+  const evalText = evaluations[type];
+  if (evalText) {
+    say(evalText[0]);
+    say(evalText[1]);
+  }
+
+  // Abschluss
+  options.innerHTML = `
+    <button onclick="lead()">Live-Demo mit echtem Bot ansehen</button>
+    <button onclick="restart()">Beenden</button>
   `;
 }
 start();
