@@ -225,6 +225,8 @@ function size(s) {
 function goal(g) {
   data.goal = g;
   clear();
+
+  // 1) Use-Case-spezifische Bewertung
   if (!data.evaluation) {
     say("Dieser Anwendungsfall wird individuell bewertet.");
     say("Der konkrete Nutzen hängt von den vorhandenen Prozessen ab.");
@@ -233,16 +235,19 @@ function goal(g) {
     say(data.evaluation[1]);
   }
 
-  say("Der Einsatz eines operativen Agenten ist in vielen Unternehmen sinnvoll,");
-  say("wenn wiederkehrende Aufgaben klar strukturiert sind und regelbasiert ausgeführt werden können.");
-  say("Ob sich der Einsatz lohnt, hängt vom tatsächlichen Volumen und der Standardisierbarkeit der Abläufe ab.");
+  // 2) Allgemeine Einordnung NUR für operativen Agenten
+  if (data.usecase === "Operativ") {
+    say("Der Einsatz eines operativen Agenten ist in vielen Unternehmen sinnvoll,");
+    say("wenn wiederkehrende Aufgaben klar strukturiert sind und regelbasiert ausgeführt werden können.");
+    say("Ob sich der Einsatz lohnt, hängt vom tatsächlichen Volumen und der Standardisierbarkeit der Abläufe ab.");
+  }
 
+  // 3) Abschluss / Call-to-Action
   options.innerHTML = `
     <button onclick="lead()">Live-Demo mit echtem Bot ansehen</button>
     <button onclick="restart()">Beenden</button>
   `;
 }
-
 function lead() {
   clear();
   say("Bitte geben Sie Ihren Namen und Ihre E-Mail-Adresse an. Ich sende Ihnen den Zugang zur Live-Demo.");
