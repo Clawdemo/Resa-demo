@@ -8,152 +8,128 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 700px;
+      max-width: 720px;
       margin: 40px auto;
       padding: 0 16px;
       line-height: 1.5;
     }
-
-    #bot-container {
+    #bot {
       border: 1px solid #ccc;
       padding: 16px;
-      margin-top: 20px;
       max-width: 420px;
     }
-
-    .bot-message {
-      margin-bottom: 12px;
-    }
-
-    .user-options button {
-      margin: 4px 4px 4px 0;
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-
-    hr {
-      margin: 32px 0;
-    }
+    .msg { margin-bottom: 12px; }
+    button { margin: 4px 4px 4px 0; padding: 6px 10px; }
+    input { width: 100%; padding: 6px; margin-bottom: 8px; }
   </style>
 </head>
 <body>
 
-  <h1>Automatisierte Bots für Schweizer Unternehmen</h1>
+<h1>Automatisierte Bots für Schweizer Unternehmen</h1>
+<p>Diese Demo zeigt, wie ein Bot Anfragen strukturiert und qualifiziert.</p>
 
-  <p>
-    Diese Seite zeigt eine <strong>Live-Demo</strong>, wie ein Bot
-    Anfragen entgegennimmt, strukturiert und vorbereitet.
-  </p>
+<hr>
 
-  <p>
-    Der Bot unten ist bewusst einfach gehalten – so kannst du
-    den Ablauf verstehen, bevor echte KI eingebunden wird.
-  </p>
+<h2>Live-Demo</h2>
 
-  <hr>
-
-  <h2>Live-Demo</h2>
-
-  <div id="bot-container">
-    <div id="chat">
-      <div class="bot-message">
-        <strong>Bot:</strong> Hallo! Was möchtest du sehen?
-      </div>
-    </div>
-
-    <div class="user-options" id="options">
-      <button onclick="showSupport()">Support-Bot</button>
-      <button onclick="showLead()">Lead-Qualifizierung</button>
-      <button onclick="showWissen()">Interner Wissensbot</button>
-    </div>
+<div id="bot">
+  <div id="chat">
+    <div class="msg"><strong>Bot:</strong> Was möchtest du sehen?</div>
   </div>
 
-  <p><small>Hinweis: Bitte keine sensiblen Daten eingeben.</small></p>
+  <div id="options">
+    <button onclick="useCase('Support')">Support-Bot</button>
+    <button onclick="useCase('Leads')">Lead-Qualifizierung</button>
+    <button onclick="useCase('Wissen')">Interner Wissensbot</button>
+  </div>
+</div>
 
-  <hr>
+<p><small>Bitte keine sensiblen Daten eingeben.</small></p>
 
-  <h2>Was dieser Bot zeigt</h2>
-  <ul>
-    <li>Geführte Gespräche statt freier Chat</li>
-    <li>Klare Struktur für Kundenanfragen</li>
-    <li>Übergabe an menschliche Beratung</li>
-  </ul>
+<script>
+const chat = document.getElementById("chat");
+const options = document.getElementById("options");
 
-  <script>
-    const chat = document.getElementById("chat");
-    const options = document.getElementById("options");
+let data = {};
 
-    function clearOptions() {
-      options.innerHTML = "";
-    }
+function say(text) {
+  const d = document.createElement("div");
+  d.className = "msg";
+  d.innerHTML = "<strong>Bot:</strong> " + text;
+  chat.appendChild(d);
+}
 
-    function addBotMessage(text) {
-      const div = document.createElement("div");
-      div.className = "bot-message";
-      div.innerHTML = "<strong>Bot:</strong> " + text;
-      chat.appendChild(div);
-    }
+function clear() { options.innerHTML = ""; }
 
-    function showSupport() {
-      clearOptions();
-      addBotMessage(
-        "Ich bin ein Support-Bot. Ich beantworte häufige Fragen, leite Anfragen weiter und entlaste dein Team."
-      );
-      addBotMessage(
-        "Typische Einsatzbereiche: Öffnungszeiten, Termine, einfache Kundenanliegen."
-      );
-      showExit();
-    }
+function useCase(type) {
+  data.usecase = type;
+  clear();
+  say(`Alles klar. Für welche Branche arbeitest du?`);
+  options.innerHTML = `
+    <button onclick="branch('Dienstleistung')">Dienstleistung</button>
+    <button onclick="branch('Beratung')">Beratung</button>
+    <button onclick="branch('Sonstiges')">Sonstiges</button>
+  `;
+}
 
-    function showLead() {
-      clearOptions();
-      addBotMessage(
-        "Ich bin ein Lead-Qualifizierungs-Bot. Ich stelle gezielte Fragen und filtere ernsthafte Anfragen."
-      );
-      addBotMessage(
-        "So sparst du Zeit und sprichst nur mit passenden Interessenten."
-      );
-      showExit();
-    }
+function branch(b) {
+  data.branch = b;
+  clear();
+  say("Wie gross ist dein Unternehmen?");
+  options.innerHTML = `
+    <button onclick="size('1–5')">1–5</button>
+    <button onclick="size('6–20')">6–20</button>
+    <button onclick="size('20+')">20+</button>
+  `;
+}
 
-    function showWissen() {
-      clearOptions();
-      addBotMessage(
-        "Ich bin ein interner Wissensbot. Mitarbeitende können mir Fragen zu Prozessen und Dokumenten stellen."
-      );
-      addBotMessage(
-        "Ideal für Onboarding, SOPs und interne Abläufe."
-      );
-      showExit();
-    }
+function size(s) {
+  data.size = s;
+  clear();
+  say("Was ist dein Hauptziel?");
+  options.innerHTML = `
+    <button onclick="goal('Support')">Support entlasten</button>
+    <button onclick="goal('Leads')">Leads filtern</button>
+    <button onclick="goal('Intern')">Internes Wissen</button>
+  `;
+}
 
-    function showExit() {
-      options.innerHTML = `
-        <button onclick="restart()">Zurück zur Auswahl</button>
-        <button onclick="contact()">Beratung anfragen</button>
-      `;
-    }
+function goal(g) {
+  data.goal = g;
+  clear();
+  say("Basierend auf deinen Angaben ist ein Bot für dein Unternehmen sinnvoll.");
+  say("Möchtest du Zugang zur Live-Demo mit echtem Bot erhalten?");
+  options.innerHTML = `
+    <button onclick="lead()">Ja, Live-Demo erhalten</button>
+    <button onclick="restart()">Nein, danke</button>
+  `;
+}
 
-    function restart() {
-      chat.innerHTML = `
-        <div class="bot-message">
-          <strong>Bot:</strong> Hallo! Was möchtest du sehen?
-        </div>
-      `;
-      options.innerHTML = `
-        <button onclick="showSupport()">Support-Bot</button>
-        <button onclick="showLead()">Lead-Qualifizierung</button>
-        <button onclick="showWissen()">Interner Wissensbot</button>
-      `;
-    }
+function lead() {
+  clear();
+  say("Bitte gib deinen Namen und deine E-Mail an. Ich sende dir den Demo-Link.");
+  options.innerHTML = `
+    <form action="https://formspree.io/f/xaqddbbb" method="POST">
+      <input type="hidden" name="Use-Case" value="${data.usecase}">
+      <input type="hidden" name="Branche" value="${data.branch}">
+      <input type="hidden" name="Firmengrösse" value="${data.size}">
+      <input type="hidden" name="Ziel" value="${data.goal}">
+      <input name="Name" placeholder="Name" required>
+      <input name="Email" type="email" placeholder="E-Mail" required>
+      <button type="submit">Demo-Link erhalten</button>
+    </form>
+  `;
+}
 
-    function contact() {
-      clearOptions();
-      addBotMessage(
-        "Danke für dein Interesse. In der echten Version würde hier ein Kontaktformular oder Termin-Link folgen."
-      );
-    }
-  </script>
+function restart() {
+  chat.innerHTML = `<div class="msg"><strong>Bot:</strong> Was möchtest du sehen?</div>`;
+  options.innerHTML = `
+    <button onclick="useCase('Support')">Support-Bot</button>
+    <button onclick="useCase('Leads')">Lead-Qualifizierung</button>
+    <button onclick="useCase('Wissen')">Interner Wissensbot</button>
+  `;
+}
+</script>
 
 </body>
 </html>
