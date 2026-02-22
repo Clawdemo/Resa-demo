@@ -21,7 +21,6 @@
     h3 { font-size: 16px; font-weight: 600; margin-top: 28px; }
 
     p, li { font-size: 14px; color: #374151; }
-
     ul { margin-left: 18px; }
 
     section { margin-top: 60px; }
@@ -83,75 +82,24 @@
   Ohne Koordinationsaufwand und ohne manuelles Nachfassen.
 </p>
 
-<button onclick="track('usecases_viewed'); document.getElementById('usecases').scrollIntoView()">
-  Use Cases ansehen
-</button>
-
-<section id="usecases">
-  <h2>Typische Einsatzbereiche</h2>
-
-  <div class="box">
-    <h3>Sporthalle mit fixen Nutzungsregeln</h3>
-    <p>Hohe Auslastung, klare Prioritäten und regelbasierte Vergabe.</p>
-  </div>
-
-  <div class="box">
-    <h3>Vereinslokal mit flexibler Nutzung</h3>
-    <p>Viele Rückfragen, wechselnde Anforderungen und hoher Abstimmungsaufwand.</p>
-  </div>
-</section>
+<button onclick="document.getElementById('demo').scrollIntoView()">Demo ansehen</button>
 
 <section id="demo">
   <h2>Interaktive Demo</h2>
-  <p>
-    Diese Demo zeigt vereinfacht, wie OpenClaw eine Raumanfrage Schritt für Schritt bearbeitet.
-    Es handelt sich nicht um eine Live-Anbindung.
-  </p>
+  <p>Diese Demo zeigt einen typischen Verwaltungsablauf. Keine Live-Anbindung.</p>
 
   <div id="bot">
     <div id="chat"></div>
     <div class="bot-options" id="options"></div>
   </div>
 
-  <p><small>Die Demo bildet einen typischen Verwaltungsablauf ab.</small></p>
-</section>
-
-<section>
-  <h2>Nächster Schritt</h2>
-  <p>
-    Wir zeigen Ihnen, wie dieser Ablauf in Ihrer Organisation aussehen würde.
-  </p>
-
-  <button onclick="track('demo_requested'); requestDemo()">
-    Persönliche Demo anfragen
-  </button>
-
-  <button onclick="track('offer_requested'); requestOffer()">
-    Unverbindliches Angebot anfragen
-  </button>
-</section>
-
-<section>
-  <h2>Feedback</h2>
-  <p>
-    Hat Ihnen etwas gefehlt oder war etwas unklar?
-    Schreiben Sie uns kurz Ihr Feedback.
-  </p>
-
-  <button onclick="track('feedback_clicked'); requestFeedback()">
-    Feedback geben
-  </button>
+  <p><small>Die Demo bildet einen realistischen Ablauf ab.</small></p>
 </section>
 
 <script>
-/* ---------- Tracking (lokal, anonym) ---------- */
-function track(event) {
-  console.log("TRACK:", event);
-}
-
-/* ---------- Demo ---------- */
 const chat = document.getElementById("chat");
 const options = document.getElementById("options");
+let demo = {};
 
 function say(text) {
   const d = document.createElement("div");
@@ -165,6 +113,7 @@ function clearOptions() {
 }
 
 function startDemo() {
+  demo = {};
   chat.innerHTML = "";
   clearOptions();
 
@@ -172,56 +121,64 @@ function startDemo() {
   say("Um welchen Raum handelt es sich?");
 
   options.innerHTML = `
-    <button onclick="track('demo_room_sporthalle'); selectRoom('Sporthalle')">Sporthalle</button>
-    <button onclick="track('demo_room_vereinslokal'); selectRoom('Vereinslokal')">Vereinslokal</button>
+    <button onclick="selectRoom('Sporthalle')">Sporthalle</button>
+    <button onclick="selectRoom('Vereinslokal')">Vereinslokal</button>
   `;
 }
 
 function selectRoom(room) {
+  demo.room = room;
   clearOptions();
   say("Raum: " + room + ".");
-  say("Bitte wählen Sie den Zweck der Nutzung.");
+  say("Bitte wählen Sie Datum und Zeit.");
 
   options.innerHTML = `
-    <button onclick="selectPurpose('Training')">Training</button>
-    <button onclick="selectPurpose('Anlass')">Anlass</button>
+    <button onclick="selectTime('12.10.2026, 18:00–20:00')">12.10.2026, 18:00–20:00</button>
+    <button onclick="selectTime('14.10.2026, 19:00–21:00')">14.10.2026, 19:00–21:00</button>
   `;
 }
 
-function selectPurpose(purpose) {
+function selectTime(time) {
+  demo.time = time;
   clearOptions();
+  say("Gewünschter Termin: " + time + ".");
+  say("Bitte wählen Sie den Zweck der Nutzung.");
+
+  if (demo.room === "Sporthalle") {
+    options.innerHTML = `
+      <button onclick="selectPurpose('Training')">Training</button>
+      <button onclick="selectPurpose('Wettkampf')">Wettkampf</button>
+      <button onclick="selectPurpose('Anlass')">Anlass</button>
+    `;
+  } else {
+    options.innerHTML = `
+      <button onclick="selectPurpose('Sitzung')">Sitzung</button>
+      <button onclick="selectPurpose('Feier / Anlass')">Feier / Anlass</button>
+      <button onclick="selectPurpose('Vermietung')">Vermietung</button>
+    `;
+  }
+}
+
+function selectPurpose(purpose) {
+  demo.purpose = purpose;
+  clearOptions();
+
   say("Zweck: " + purpose + ".");
   say("Ich prüfe die Anfrage anhand der Nutzungsregeln und der aktuellen Belegung.");
 
   setTimeout(() => {
     say("Ergebnis der Prüfung:");
-    say("– Zeitfenster grundsätzlich möglich");
+    say("– Zeitfenster verfügbar");
     say("– Keine Sperrzeit betroffen");
-    say("– Priorität korrekt");
+    say("– Nutzung entspricht den Vorgaben");
 
     say("Die Reservation kann vorbereitet werden.");
-    say("Der Vorgang wird dokumentiert und zur weiteren Bearbeitung übergeben.");
+    say("Der Vorgang wird dokumentiert und weiterbearbeitet.");
 
     options.innerHTML = `
       <button onclick="startDemo()">Neue Anfrage simulieren</button>
     `;
   }, 700);
-}
-
-/* ---------- Mail-Funktionen ---------- */
-function requestDemo() {
-  window.location.href =
-    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Anfrage: Persönliche Demo OpenClaw";
-}
-
-function requestOffer() {
-  window.location.href =
-    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Anfrage: Operativer Agent für unser Unternehmen";
-}
-
-function requestFeedback() {
-  window.location.href =
-    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Feedback zur OpenClaw Website";
 }
 
 startDemo();
