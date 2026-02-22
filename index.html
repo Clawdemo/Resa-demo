@@ -2,426 +2,236 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Bot-Demo für Unternehmen</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw – Operativer Reservationsagent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    max-width: 760px;
-    margin: 60px auto;
-    padding: 0 20px;
-    line-height: 1.6;
-    color: #1f2933;
-    background: #fafafa;
-  }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+      color: #1f2933;
+      background: #fafafa;
+    }
 
-  h1 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
 
-  h2 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 32px;
-  }
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 48px;
+      margin-bottom: 12px;
+    }
 
-  p {
-    color: #4b5563;
-    font-size: 14px;
-  }
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 32px;
+      margin-bottom: 8px;
+    }
 
-  hr {
-    border: none;
-    border-top: 1px solid #e5e7eb;
-    margin: 32px 0;
-  }
+    p {
+      font-size: 14px;
+      color: #374151;
+      margin-bottom: 12px;
+    }
 
-  #bot {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 460px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-  }
+    ul {
+      margin-left: 18px;
+      font-size: 14px;
+    }
 
-  .msg {
-    margin-bottom: 14px;
-    font-size: 14px;
-    color: #111827;
-  }
+    li {
+      margin-bottom: 6px;
+    }
 
-  .msg strong {
-    font-weight: 600;
-  }
+    .cta {
+      margin-top: 20px;
+    }
 
-  #options {
-    margin-top: 12px;
-  }
+    button {
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      cursor: pointer;
+      margin-right: 8px;
+    }
 
-  button {
-    display: inline-block;
-    margin: 6px 6px 0 0;
-    padding: 8px 14px;
-    font-size: 13px;
-    font-weight: 500;
-    border-radius: 6px;
-    border: 1px solid #d1d5db;
-    background: #f9fafb;
-    color: #111827;
-    cursor: pointer;
-  }
+    button:hover {
+      background: #f3f4f6;
+    }
 
-  button:hover {
-    background: #f3f4f6;
-  }
+    section {
+      margin-top: 60px;
+    }
 
-  button:focus {
-    outline: none;
-    border-color: #9ca3af;
-  }
+    .usecase {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      background: #ffffff;
+    }
 
-  input {
-    width: 100%;
-    padding: 8px;
-    font-size: 13px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: 1px solid #d1d5db;
-  }
+    .bot-demo {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid #e5e7eb;
+    }
 
-  small {
-    color: #6b7280;
-    font-size: 12px;
-  }
+    #bot {
+      max-width: 460px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      background: #ffffff;
+    }
 
-  .reset {
-    margin-top: 16px;
-    font-size: 12px;
-    color: #6b7280;
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
+    .msg {
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
 
-  .reset:hover {
-    text-decoration: underline;
-  }
-</style>
+    #options button {
+      margin-top: 8px;
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+
+    small {
+      font-size: 12px;
+      color: #6b7280;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>Automatisierte Bots für Schweizer Unternehmen</h1>
-<p>Diese Demo zeigt, wie ein Bot Anfragen strukturiert und qualifiziert.</p>
+<!-- HERO -->
+<h1>
+  OpenClaw ist ein operativer Reservationsagent, der den gesamten Prozess von Raumanfragen
+  innerhalb klar definierter Vorgaben eigenständig abwickelt.
+</h1>
 
-<hr>
+<p>
+  OpenClaw übernimmt die administrative Abwicklung von Raumreservationen.
+  Von der ersten Anfrage bis zur dokumentierten Buchung.
+  Ohne Koordinationsaufwand und ohne manuelles Nachfassen.
+</p>
 
-<h2>Live-Demo</h2>
-
-<div id="bot">
-  <button class="reset" onclick="restart()">Zurück zum Anfang</button>
- <div id="chat"></div>
-
-  <div id="options">
-    <button onclick="useCase('Operativ')">Operativer Agent (Administration & Support)</button>
-    <button onclick="showBasic()">Bekannte Teilanwendungen anzeigen</button>
-  </div>
+<div class="cta">
+  <button onclick="document.getElementById('usecases').scrollIntoView()">Use Cases ansehen</button>
 </div>
 
-<p><small>Bitte keine sensiblen Daten eingeben.</small></p>
+<!-- FÜR WEN -->
+<section>
+  <h2>Für wen OpenClaw gedacht ist</h2>
+  <p>
+    OpenClaw richtet sich an Organisationen, die Räume regelbasiert oder flexibel vergeben
+    und dabei viel Zeit mit Koordination verlieren.
+  </p>
+  <ul>
+    <li>Viele Anfragen per E-Mail oder Formular</li>
+    <li>Unvollständige Angaben</li>
+    <li>Rückfragen und Missverständnisse</li>
+    <li>Doppelbuchungen oder Konflikte</li>
+    <li>Hoher manueller Aufwand</li>
+  </ul>
+</section>
+
+<!-- WAS OPENCLAW ÜBERNIMMT -->
+<section>
+  <h2>Was OpenClaw übernimmt</h2>
+  <ul>
+    <li>Entgegennahme von Raumanfragen</li>
+    <li>Prüfung auf Vollständigkeit und Plausibilität</li>
+    <li>Abgleich mit Verfügbarkeiten</li>
+    <li>Anwendung definierter Nutzungsregeln</li>
+    <li>Rückmeldung an Antragsteller</li>
+    <li>Saubere Dokumentation und Übergabe</li>
+  </ul>
+  <p>
+    Sonderfälle werden gezielt weitergegeben.
+    Routinefälle laufen strukturiert durch.
+  </p>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases">
+  <h2>Typische Einsatzbereiche</h2>
+
+  <div class="usecase">
+    <h3>Sporthalle mit fixen Nutzungsregeln</h3>
+    <p>
+      Hohe Auslastung, feste Regeln und klare Prioritäten.
+      OpenClaw sorgt für nachvollziehbare Entscheidungen
+      und reduziert Konflikte bei der Vergabe.
+    </p>
+  </div>
+
+  <div class="usecase">
+    <h3>Vereinslokal mit flexibler Nutzung</h3>
+    <p>
+      Flexible Nutzung, viele Rückfragen und wechselnde Anforderungen.
+      OpenClaw strukturiert die Kommunikation
+      und reduziert den Abstimmungsaufwand.
+    </p>
+  </div>
+</section>
+
+<!-- NÄCHSTER SCHRITT -->
+<section>
+  <h2>Nächster Schritt</h2>
+  <p>
+    Sie müssen sich noch nicht festlegen.
+    Wir zeigen Ihnen, wie der Reservationsprozess
+    in Ihrer Organisation aussehen würde.
+  </p>
+  <div class="cta">
+    <button onclick="alert('Demo-Anfrage – später anbinden')">Persönliche Demo anfragen</button>
+    <button onclick="alert('Angebotsanfrage – später anbinden')">Unverbindliches Angebot anfragen</button>
+  </div>
+</section>
+
+<!-- MOCK BOT -->
+<section class="bot-demo">
+  <h2>Interaktive Demo (Beispiel)</h2>
+  <p>
+    Die folgende Demo zeigt vereinfacht,
+    wie OpenClaw strukturiert Informationen abfragt.
+  </p>
+
+  <div id="bot">
+    <div id="chat">
+      <div class="msg"><strong>Bot:</strong> Guten Tag. Für welchen Raum möchten Sie eine Anfrage stellen?</div>
+    </div>
+    <div id="options">
+      <button onclick="say('Sporthalle')">Sporthalle</button>
+      <button onclick="say('Vereinslokal')">Vereinslokal</button>
+    </div>
+  </div>
+
+  <p><small>Diese Demo dient nur zur Veranschaulichung.</small></p>
+</section>
 
 <script>
-function start() {
-  chat.innerHTML = `
-    <div class="msg"><strong>Bot:</strong> Guten Tag.<br><br>
-    <strong>Bot:</strong> OpenClaw ist ein operativer Agent für administrative und unterstützende Aufgaben in Unternehmen.<br><br>
-    <strong>Bot:</strong> Er übernimmt klar definierte Tätigkeiten selbstständig, arbeitet regelbasiert und dokumentiert jeden Schritt.<br><br>
-    <strong>Bot:</strong> Möchten Sie sehen, wie dieser Agent arbeitet,<br>
-    oder zunächst bekannte Teilanwendungen betrachten?</div>
-  `;
-
-  options.innerHTML = `
-    <button onclick="useCase('Operativ')">Operativer Agent (Administration & Support)</button>
-    <button onclick="showBasic()">Bekannte Teilanwendungen anzeigen</button>
-  `;
-}
-const chat = document.getElementById("chat");
-const options = document.getElementById("options");
-
-let data = {};
-
-const evaluations = {
-  Support: [
-    "Für Support-Anfragen ist ein Bot häufig sinnvoll, wenn viele ähnliche Fragen wiederholt auftreten.",
-    "Der Nutzen steigt, sobald einfache Anfragen regelmässig Mitarbeitende binden."
-  ],
-  Leads: [
-    "Für die Vorqualifizierung von Anfragen ist ein Bot sinnvoll, wenn viele Kontakte ungefiltert eingehen.",
-    "Der Nutzen liegt vor allem in der Trennung von relevanten und irrelevanten Anfragen."
-  ],
-  Wissen: [
-    "Für internes Wissen ist ein Bot sinnvoll, wenn Informationen häufig gesucht, aber schwer auffindbar sind.",
-    "Der Nutzen zeigt sich besonders bei Onboarding und wiederkehrenden internen Fragen."
-  ],
-  Operativ: [
-  "Für administrative und operative Aufgaben ist ein Agent sinnvoll, wenn Abläufe klar definiert sind.",
-  "Der Nutzen entsteht durch die Übernahme wiederkehrender Tätigkeiten über mehrere Kanäle hinweg."
-  ],
-};  
-
 function say(text) {
-  const d = document.createElement("div");
-  d.className = "msg";
-  d.innerHTML = "<strong>Bot:</strong> " + text;
-  chat.appendChild(d);
+  const chat = document.getElementById("chat");
+  const msg = document.createElement("div");
+  msg.className = "msg";
+  msg.innerHTML = "<strong>Bot:</strong> Anfrage für " + text + " erfasst.";
+  chat.appendChild(msg);
 }
-
-function clear() { options.innerHTML = ""; }
-
-function useCase(type) {
-  data.usecase = type;
-  data.evaluation = evaluations[type];
-  clear();
-  if (type === "Operativ") {
-    say("Der operative Agent übernimmt klar definierte administrative Aufgaben, die sonst manuell ausgeführt werden.");
-    say("Er arbeitet kanalübergreifend, führt Aufgaben nach festen Regeln aus und eskaliert bei Unklarheiten.");
-    say("Typische Aufgaben sind zum Beispiel:");
-    say("– E-Mails bearbeiten oder weiterleiten<br>– Telefonanfragen zuordnen<br>– Dokumente ablegen oder weiterreichen<br>– Aufgaben oder Tickets regelbasiert ausführen");
-  }
-  say("Für welche Branche arbeiten Sie?");
-  options.innerHTML = `
-    <button onclick="branch('Dienstleistung')">Dienstleistung</button>
-    <button onclick="branch('Beratung')">Beratung</button>
-    <button onclick="branch('Sonstiges')">Sonstiges</button>
-  `;
-}
-
-function branch(b) {
-  data.branch = b;
-  clear();
-  say("Wie gross ist Ihr Unternehmen?");
-  options.innerHTML = `
-    <button onclick="size('1–5')">1–5</button>
-    <button onclick="size('6–20')">6–20</button>
-    <button onclick="size('20+')">20+</button>
-  `;
-}
-
-function size(s) {
-  data.size = s;
-  clear();
-  say("Was ist Ihr Hauptziel?");
-  options.innerHTML = `
-    <button onclick="goal('Support')">Support entlasten</button>
-    <button onclick="goal('Leads')">Leads filtern</button>
-    <button onclick="goal('Wissen')">Internes Wissen</button>
-  `;
-}
-
-function goal(g) {
-  data.goal = g;
-  clear();
-
-  // Ziel bestimmt die Bewertung
-  const goalEvaluation = evaluations[data.goal];
-  
-  if (goalEvaluation) {
-    say(goalEvaluation[0]);
-    say(goalEvaluation[1]);
-  } else {
-    say("Dieser Anwendungsfall wird individuell bewertet.");
-    say("Der konkrete Nutzen hängt von den vorhandenen Prozessen ab.");
-  }
-
-  // 2) Allgemeine Einordnung NUR für operativen Agenten
-  if (data.usecase === "Operativ") {
-    say("Der Einsatz eines operativen Agenten ist in vielen Unternehmen sinnvoll,");
-    say("wenn wiederkehrende Aufgaben klar strukturiert sind und regelbasiert ausgeführt werden können.");
-    say("Ob sich der Einsatz lohnt, hängt vom tatsächlichen Volumen und der Standardisierbarkeit der Abläufe ab.");
-  }
-
-  // 3) Abschluss / Call-to-Action
-  say("Im nächsten Schritt erfassen wir Ihre Kontaktdaten.");
-  say("Danach können Sie wählen, ob Sie eine persönliche Live-Demo wünschen oder ein unverbindliches Angebot anfragen möchten.");
-  
-  options.innerHTML = `
-    <button onclick="lead()">Kontaktdaten eingeben</button>
-    <button onclick="restart()">Beenden</button>
-  `;
-}
-  
-function lead() {
-  clear();
-  say("Bitte geben Sie Ihren Namen und Ihre E-Mail-Adresse an.");
-  say("Im nächsten Schritt können Sie wählen, ob Sie eine persönliche Live-Demo wünschen oder ein unverbindliches Angebot anfragen möchten.");
-
-  options.innerHTML = `
-    <form onsubmit="afterSubmit(event)" action="FORM_ACTION_HIER_EINSETZEN" method="POST">
-      <input type="hidden" name="Use-Case" value="${data.usecase}">
-      <input type="hidden" name="Branche" value="${data.branch}">
-      <input type="hidden" name="Firmengrösse" value="${data.size}">
-      <input type="hidden" name="Ziel" value="${data.goal}">
-
-      <input name="Name" placeholder="Name" required>
-      <input name="Email" type="email" placeholder="E-Mail" required>
-
-      <button type="submit">Weiter</button>
-    </form>
-  `;
-}
-
-function restart() {
-  data = {};
-  start();
-}
-  
-function afterSubmit(event) {
-  event.preventDefault();
-
-  const form = event.target;
-  data.name = form.Name.value;
-  data.email = form.Email.value;
-
-  fetch(form.action, {
-    method: "POST",
-    body: new FormData(form),
-    headers: { "Accept": "application/json" }
-  });
-
-  options.innerHTML = "";
-    say("Vielen Dank.");
-    say("Wie möchten Sie weiter vorgehen?");
-
-  options.innerHTML = `
-    <button onclick="requestDemo()">Termin für persönliche Live-Demo anfragen</button>
-    <button onclick="buyBot()">Unverbindliches Angebot anfragen</button>
-  `;
-}
-  
-function buyBot() {
-  const subject = encodeURIComponent(
-    "Anfrage: Operativer Agent für unser Unternehmen"
-  );
-
-  const body = encodeURIComponent(
-`Guten Tag
-
-Wir interessieren uns für den Einsatz eines operativen Agenten in unserem Unternehmen.
-
-Die folgenden Angaben wurden im Demo-Ablauf erfasst und können bei Bedarf angepasst werden.
-
-Unternehmensname:
-Branche: ${data.branch || ""}
-Unternehmensgrösse: ${data.size || ""}
-Primärer Anwendungsfall: ${data.usecase || ""}
-Konkretes Ziel: ${data.goal || ""}
-
-Geplanter Einsatzbereich / Aufgabenbeschreibung:
-
-
-Bevorzugte Kontaktaufnahme:
-☐ E-Mail
-☐ Telefon (Rückrufnummer: ____________________)
-☐ Video-Call (z. B. Microsoft Teams)
-
-Kontaktperson: ${data.name || ""}
-E-Mail-Adresse: ${data.email || ""}
-
-Freundliche Grüsse
-`
-  );
-
-  window.location.href =
-    `mailto:DEINEEMAIL@DOMAIN.CH?subject=${subject}&body=${body}`;
-}
-function requestDemo() {
-  const subject = encodeURIComponent(
-    "Anfrage: Persönliche Live-Demo – Operativer Agent"
-  );
-
-  const body = encodeURIComponent(
-`Guten Tag
-
-Vielen Dank für den Demo-Ablauf auf Ihrer Website.
-
-Ich interessiere mich für eine persönliche Live-Demo des operativen Agenten.
-
-Die folgenden Angaben wurden im Demo-Ablauf erfasst und können bei Bedarf angepasst werden.
-
-Unternehmensname:
-Branche: ${data.branch || ""}
-Unternehmensgrösse: ${data.size || ""}
-Primärer Anwendungsfall: ${data.usecase || ""}
-Konkretes Ziel: ${data.goal || ""}
-
-Bevorzugte Termine / Zeitfenster:
-
-
-Bevorzugtes Tool (z. B. Microsoft Teams, Zoom, Telefon):
-
-
-Kontaktperson: ${data.name || ""}
-E-Mail-Adresse: ${data.email || ""}
-Telefonnummer:
-
-Freundliche Grüsse
-`
-  );
-
-  window.location.href =
-    `mailto:DEINEEMAIL@DOMAIN.CH?subject=${subject}&body=${body}`;
-}
-  
-function startDemo() {
-  say("Danke für Ihr Interesse.");
-}
-
-function showBasic() {
-  clear();
-  say("Viele Unternehmen kennen Bots bereits aus einzelnen, klar abgegrenzten Bereichen.");
-  say("Diese Funktionen sind Teil des operativen Agenten, decken aber jeweils nur einen Teil des Gesamtsystems ab.");
-
-  options.innerHTML = `
-    <button onclick="basicCase('Support')">Website-Support</button>
-    <button onclick="basicCase('Leads')">Lead-Qualifizierung</button>
-    <button onclick="basicCase('Wissen')">Internes Wissen</button>
-  `;
-}
-
-function basicCase(type) {
-  data.usecase = type;
-  data.goal = type;
-  clear();
-
-  // Erklärung
-  if (type === "Support") {
-    say("Ein Website-Support-Bot beantwortet wiederkehrende Kundenanfragen, zum Beispiel zu Öffnungszeiten oder Terminen.");
-  }
-  if (type === "Leads") {
-    say("Ein Lead-Qualifizierungs-Bot stellt strukturierte Fragen und filtert ungeeignete Anfragen.");
-  }
-  if (type === "Wissen") {
-    say("Ein interner Wissensbot beantwortet Fragen zu Prozessen und Dokumenten.");
-  }
-
-  // Bewertung
-  const evalText = evaluations[type];
-  if (evalText) {
-    say(evalText[0]);
-    say(evalText[1]);
-  }
-
-  // Abschluss
-  options.innerHTML = `
-    <button onclick="lead()">Live-Demo mit echtem Bot ansehen</button>
-    <button onclick="restart()">Beenden</button>
-  `;
-}
-start();
 </script>
 
 </body>
