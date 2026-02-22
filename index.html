@@ -16,44 +16,15 @@
       background: #fafafa;
     }
 
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
+    h1 { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+    h2 { font-size: 18px; font-weight: 600; margin-top: 48px; margin-bottom: 12px; }
+    h3 { font-size: 16px; font-weight: 600; margin-top: 28px; }
 
-    h2 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-top: 48px;
-      margin-bottom: 12px;
-    }
+    p, li { font-size: 14px; color: #374151; }
 
-    h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-top: 32px;
-      margin-bottom: 8px;
-    }
+    ul { margin-left: 18px; }
 
-    p {
-      font-size: 14px;
-      color: #374151;
-      margin-bottom: 12px;
-    }
-
-    ul {
-      margin-left: 18px;
-      font-size: 14px;
-    }
-
-    li {
-      margin-bottom: 6px;
-    }
-
-    .cta {
-      margin-top: 20px;
-    }
+    section { margin-top: 60px; }
 
     button {
       padding: 10px 16px;
@@ -63,33 +34,21 @@
       border: 1px solid #d1d5db;
       background: #ffffff;
       cursor: pointer;
-      margin-right: 8px;
+      margin: 6px 6px 0 0;
     }
 
-    button:hover {
-      background: #f3f4f6;
-    }
+    button:hover { background: #f3f4f6; }
 
-    section {
-      margin-top: 60px;
-    }
-
-    .usecase {
+    .box {
+      background: #ffffff;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
       padding: 20px;
       margin-top: 20px;
-      background: #ffffff;
-    }
-
-    .bot-demo {
-      margin-top: 80px;
-      padding-top: 40px;
-      border-top: 1px solid #e5e7eb;
     }
 
     #bot {
-      max-width: 460px;
+      max-width: 480px;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
       padding: 16px;
@@ -101,23 +60,18 @@
       font-size: 14px;
     }
 
-    #options button {
-      margin-top: 8px;
+    .bot-options button {
       display: block;
       width: 100%;
       text-align: left;
     }
 
-    small {
-      font-size: 12px;
-      color: #6b7280;
-    }
+    small { font-size: 12px; color: #6b7280; }
   </style>
 </head>
 
 <body>
 
-<!-- HERO -->
 <h1>
   OpenClaw ist ein operativer Reservationsagent, der den gesamten Prozess von Raumanfragen
   innerhalb klar definierter Vorgaben eigenständig abwickelt.
@@ -129,109 +83,148 @@
   Ohne Koordinationsaufwand und ohne manuelles Nachfassen.
 </p>
 
-<div class="cta">
-  <button onclick="document.getElementById('usecases').scrollIntoView()">Use Cases ansehen</button>
-</div>
+<button onclick="track('usecases_viewed'); document.getElementById('usecases').scrollIntoView()">
+  Use Cases ansehen
+</button>
 
-<!-- FÜR WEN -->
-<section>
-  <h2>Für wen OpenClaw gedacht ist</h2>
-  <p>
-    OpenClaw richtet sich an Organisationen, die Räume regelbasiert oder flexibel vergeben
-    und dabei viel Zeit mit Koordination verlieren.
-  </p>
-  <ul>
-    <li>Viele Anfragen per E-Mail oder Formular</li>
-    <li>Unvollständige Angaben</li>
-    <li>Rückfragen und Missverständnisse</li>
-    <li>Doppelbuchungen oder Konflikte</li>
-    <li>Hoher manueller Aufwand</li>
-  </ul>
-</section>
-
-<!-- WAS OPENCLAW ÜBERNIMMT -->
-<section>
-  <h2>Was OpenClaw übernimmt</h2>
-  <ul>
-    <li>Entgegennahme von Raumanfragen</li>
-    <li>Prüfung auf Vollständigkeit und Plausibilität</li>
-    <li>Abgleich mit Verfügbarkeiten</li>
-    <li>Anwendung definierter Nutzungsregeln</li>
-    <li>Rückmeldung an Antragsteller</li>
-    <li>Saubere Dokumentation und Übergabe</li>
-  </ul>
-  <p>
-    Sonderfälle werden gezielt weitergegeben.
-    Routinefälle laufen strukturiert durch.
-  </p>
-</section>
-
-<!-- USE CASES -->
 <section id="usecases">
   <h2>Typische Einsatzbereiche</h2>
 
-  <div class="usecase">
+  <div class="box">
     <h3>Sporthalle mit fixen Nutzungsregeln</h3>
-    <p>
-      Hohe Auslastung, feste Regeln und klare Prioritäten.
-      OpenClaw sorgt für nachvollziehbare Entscheidungen
-      und reduziert Konflikte bei der Vergabe.
-    </p>
+    <p>Hohe Auslastung, klare Prioritäten und regelbasierte Vergabe.</p>
   </div>
 
-  <div class="usecase">
+  <div class="box">
     <h3>Vereinslokal mit flexibler Nutzung</h3>
-    <p>
-      Flexible Nutzung, viele Rückfragen und wechselnde Anforderungen.
-      OpenClaw strukturiert die Kommunikation
-      und reduziert den Abstimmungsaufwand.
-    </p>
+    <p>Viele Rückfragen, wechselnde Anforderungen und hoher Abstimmungsaufwand.</p>
   </div>
 </section>
 
-<!-- NÄCHSTER SCHRITT -->
-<section>
-  <h2>Nächster Schritt</h2>
+<section id="demo">
+  <h2>Interaktive Demo</h2>
   <p>
-    Sie müssen sich noch nicht festlegen.
-    Wir zeigen Ihnen, wie der Reservationsprozess
-    in Ihrer Organisation aussehen würde.
-  </p>
-  <div class="cta">
-    <button onclick="alert('Demo-Anfrage – später anbinden')">Persönliche Demo anfragen</button>
-    <button onclick="alert('Angebotsanfrage – später anbinden')">Unverbindliches Angebot anfragen</button>
-  </div>
-</section>
-
-<!-- MOCK BOT -->
-<section class="bot-demo">
-  <h2>Interaktive Demo (Beispiel)</h2>
-  <p>
-    Die folgende Demo zeigt vereinfacht,
-    wie OpenClaw strukturiert Informationen abfragt.
+    Diese Demo zeigt vereinfacht, wie OpenClaw eine Raumanfrage Schritt für Schritt bearbeitet.
+    Es handelt sich nicht um eine Live-Anbindung.
   </p>
 
   <div id="bot">
-    <div id="chat">
-      <div class="msg"><strong>Bot:</strong> Guten Tag. Für welchen Raum möchten Sie eine Anfrage stellen?</div>
-    </div>
-    <div id="options">
-      <button onclick="say('Sporthalle')">Sporthalle</button>
-      <button onclick="say('Vereinslokal')">Vereinslokal</button>
-    </div>
+    <div id="chat"></div>
+    <div class="bot-options" id="options"></div>
   </div>
 
-  <p><small>Diese Demo dient nur zur Veranschaulichung.</small></p>
+  <p><small>Die Demo bildet einen typischen Verwaltungsablauf ab.</small></p>
+</section>
+
+<section>
+  <h2>Nächster Schritt</h2>
+  <p>
+    Wir zeigen Ihnen, wie dieser Ablauf in Ihrer Organisation aussehen würde.
+  </p>
+
+  <button onclick="track('demo_requested'); requestDemo()">
+    Persönliche Demo anfragen
+  </button>
+
+  <button onclick="track('offer_requested'); requestOffer()">
+    Unverbindliches Angebot anfragen
+  </button>
+</section>
+
+<section>
+  <h2>Feedback</h2>
+  <p>
+    Hat Ihnen etwas gefehlt oder war etwas unklar?
+    Schreiben Sie uns kurz Ihr Feedback.
+  </p>
+
+  <button onclick="track('feedback_clicked'); requestFeedback()">
+    Feedback geben
+  </button>
 </section>
 
 <script>
-function say(text) {
-  const chat = document.getElementById("chat");
-  const msg = document.createElement("div");
-  msg.className = "msg";
-  msg.innerHTML = "<strong>Bot:</strong> Anfrage für " + text + " erfasst.";
-  chat.appendChild(msg);
+/* ---------- Tracking (lokal, anonym) ---------- */
+function track(event) {
+  console.log("TRACK:", event);
 }
+
+/* ---------- Demo ---------- */
+const chat = document.getElementById("chat");
+const options = document.getElementById("options");
+
+function say(text) {
+  const d = document.createElement("div");
+  d.className = "msg";
+  d.innerHTML = "<strong>OpenClaw:</strong> " + text;
+  chat.appendChild(d);
+}
+
+function clearOptions() {
+  options.innerHTML = "";
+}
+
+function startDemo() {
+  chat.innerHTML = "";
+  clearOptions();
+
+  say("Guten Tag. Ich bearbeite Raumanfragen nach den geltenden Vorgaben.");
+  say("Um welchen Raum handelt es sich?");
+
+  options.innerHTML = `
+    <button onclick="track('demo_room_sporthalle'); selectRoom('Sporthalle')">Sporthalle</button>
+    <button onclick="track('demo_room_vereinslokal'); selectRoom('Vereinslokal')">Vereinslokal</button>
+  `;
+}
+
+function selectRoom(room) {
+  clearOptions();
+  say("Raum: " + room + ".");
+  say("Bitte wählen Sie den Zweck der Nutzung.");
+
+  options.innerHTML = `
+    <button onclick="selectPurpose('Training')">Training</button>
+    <button onclick="selectPurpose('Anlass')">Anlass</button>
+  `;
+}
+
+function selectPurpose(purpose) {
+  clearOptions();
+  say("Zweck: " + purpose + ".");
+  say("Ich prüfe die Anfrage anhand der Nutzungsregeln und der aktuellen Belegung.");
+
+  setTimeout(() => {
+    say("Ergebnis der Prüfung:");
+    say("– Zeitfenster grundsätzlich möglich");
+    say("– Keine Sperrzeit betroffen");
+    say("– Priorität korrekt");
+
+    say("Die Reservation kann vorbereitet werden.");
+    say("Der Vorgang wird dokumentiert und zur weiteren Bearbeitung übergeben.");
+
+    options.innerHTML = `
+      <button onclick="startDemo()">Neue Anfrage simulieren</button>
+    `;
+  }, 700);
+}
+
+/* ---------- Mail-Funktionen ---------- */
+function requestDemo() {
+  window.location.href =
+    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Anfrage: Persönliche Demo OpenClaw";
+}
+
+function requestOffer() {
+  window.location.href =
+    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Anfrage: Operativer Agent für unser Unternehmen";
+}
+
+function requestFeedback() {
+  window.location.href =
+    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Feedback zur OpenClaw Website";
+}
+
+startDemo();
 </script>
 
 </body>
