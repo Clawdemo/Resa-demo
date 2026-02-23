@@ -122,12 +122,6 @@
       text-decoration: underline;
     }
 
-    .microcopy {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
     .msg {
       margin-bottom: 10px;
       font-size: 14px;
@@ -139,9 +133,10 @@
       text-align: left;
     }
 
-    small {
+    .microcopy {
       font-size: 12px;
       color: var(--text-muted);
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -155,23 +150,16 @@
   <div class="boxes">
     <div class="box">
       <h3>Gemeindeverwaltung</h3>
-      <p>
-        Automatisierte Reservationen für Gemeinderäumlichkeiten nach klar definierten
-        Nutzungs- und Belegungsregeln.
-      </p>
+      <p>Automatisierte Reservationen für Gemeinderäumlichkeiten nach klar definierten Nutzungs- und Belegungsregeln.</p>
     </div>
 
     <div class="box">
       <h3>Verein</h3>
-      <p>
-        Strukturierte Raumreservationen mit verfügbaren Zeiten,
-        klaren Zwecken und einfachem Ablauf.
-      </p>
+      <p>Strukturierte Raumreservationen mit verfügbaren Zeiten, klaren Zwecken und einfachem Ablauf.</p>
     </div>
   </div>
 
-  <button class="primary"
-    onclick="track('simulate_reservation'); document.getElementById('demo').scrollIntoView()">
+  <button class="primary" onclick="document.getElementById('demo').scrollIntoView()">
     Reservation simulieren
   </button>
 </div>
@@ -188,55 +176,38 @@
     <div id="context"></div>
   </div>
 
-  <p><small>Vereinfachte Darstellung eines realen Ablaufs.</small></p>
+  <p class="microcopy">Vereinfachte Darstellung eines realen Ablaufs.</p>
 </section>
 
 <section>
   <h2>Nächster Schritt</h2>
   <p>Wählen Sie, wie Sie mit Resa weiter vorgehen möchten.</p>
 
-  <button onclick="track('request_discussion'); requestDemo()">
-    Ablauf für unsere Organisation besprechen
-  </button>
-  <button onclick="track('request_offer'); requestOffer()">
-    Angebot für unsere Organisation anfordern
-  </button>
+  <button onclick="requestDemo()">Ablauf für unsere Organisation besprechen</button>
+  <button onclick="requestOffer()">Angebot für unsere Organisation anfordern</button>
 </section>
 
 <section>
   <h2>Feedback</h2>
-  <button onclick="track('feedback'); requestFeedback()">
-    Rückmeldung zur Demo geben
-  </button>
+  <button onclick="requestFeedback()">Rückmeldung zur Demo geben</button>
 </section>
 
 <script>
-function track(event) {
-  console.log("TRACK:", event);
-}
-
 const chat = document.getElementById("chat");
 const options = document.getElementById("options");
 const context = document.getElementById("context");
 let state = {};
 
-function clearContext() {
-  context.innerHTML = "";
-}
-
-function setContext(text) {
-  context.innerHTML = `<div class="microcopy">${text}</div>`;
-}
+function clearContext() { context.innerHTML = ""; }
+function setContext(text) { context.innerHTML = `<div class="microcopy">${text}</div>`; }
+function clearOptions() { options.innerHTML = ""; }
 
 function typeText(el, text, speed = 25) {
   return new Promise(resolve => {
     let i = 0;
     const t = setInterval(() => {
       el.textContent += text.charAt(i++);
-      if (i >= text.length) {
-        clearInterval(t);
-        resolve();
-      }
+      if (i >= text.length) { clearInterval(t); resolve(); }
     }, speed);
   });
 }
@@ -249,15 +220,7 @@ async function say(text) {
   row.appendChild(span);
   chat.appendChild(row);
   await typeText(span, text);
-  await new Promise(r => setTimeout(r, 300));
-}
-
-async function saySequence(list) {
-  for (const t of list) await say(t);
-}
-
-function clearOptions() {
-  options.innerHTML = "";
+  await new Promise(r => setTimeout(r, 250));
 }
 
 async function startDemo() {
@@ -266,11 +229,9 @@ async function startDemo() {
   clearOptions();
   clearContext();
 
-  await saySequence([
-    "Guten Tag.",
-    "Ich bearbeite Reservationen nach den geltenden Vorgaben.",
-    "Für welchen Bereich möchten Sie eine Reservation simulieren?"
-  ]);
+  await say("Guten Tag.");
+  await say("Ich bearbeite Reservationen nach den geltenden Vorgaben.");
+  await say("Für welchen Bereich möchten Sie eine Reservation simulieren?");
 
   setContext("Die Auswahl dient nur zur Darstellung des Ablaufs.");
 
@@ -282,26 +243,25 @@ async function startDemo() {
 
 async function selectDomain(domain) {
   state.domain = domain;
-  clearOptions();
-  clearContext();
+  clearOptions(); clearContext();
 
   await say("Bereich gewählt: " + domain + ".");
   await say("Bitte wählen Sie eine Ressource.");
 
-  options.innerHTML = domain === "Gemeinde"
-    ? `
-      <button onclick="selectResource('Sporthalle')">Sporthalle</button>
-      <button onclick="selectResource('Mehrzweckhalle')">Mehrzweckhalle</button>
-      <button onclick="selectResource('Sitzungszimmer')">Sitzungszimmer</button>`
-    : `
-      <button onclick="selectResource('Vereinslokal')">Vereinslokal</button>
-      <button onclick="selectResource('Sitzungsraum')">Sitzungsraum</button>
-      <button onclick="selectResource('Trainingsraum')">Trainingsraum</button>`;
+  options.innerHTML = domain === "Gemeinde" ? `
+    <button onclick="selectResource('Sporthalle')">Sporthalle</button>
+    <button onclick="selectResource('Mehrzweckhalle')">Mehrzweckhalle</button>
+    <button onclick="selectResource('Sitzungszimmer')">Sitzungszimmer</button>
+  ` : `
+    <button onclick="selectResource('Vereinslokal')">Vereinslokal</button>
+    <button onclick="selectResource('Sitzungsraum')">Sitzungsraum</button>
+    <button onclick="selectResource('Trainingsraum')">Trainingsraum</button>
+  `;
 }
 
 async function selectResource(resource) {
-  clearOptions();
-  clearContext();
+  state.resource = resource;
+  clearOptions(); clearContext();
 
   await say("Ressource gewählt: " + resource + ".");
   await say("Bitte wählen Sie einen verfügbaren Termin.");
@@ -316,42 +276,69 @@ async function selectResource(resource) {
 }
 
 async function selectTime(time) {
-  clearOptions();
-  clearContext();
-
+  clearOptions(); clearContext();
   await say("Termin ausgewählt: " + time + ".");
   await say("Bitte wählen Sie den Zweck der Nutzung.");
 
-  options.innerHTML = `<button onclick="finish()">Zweck auswählen (Demo)</button>`;
+  let buttons = "";
+
+  if (state.domain === "Gemeinde") {
+    if (state.resource === "Sporthalle") {
+      buttons = `
+        <button onclick="finish('Vereinstraining')">Vereinstraining</button>
+        <button onclick="finish('Wettkampf')">Wettkampf</button>
+        <button onclick="finish('Gemeindeveranstaltung')">Gemeindeveranstaltung</button>`;
+    } else if (state.resource === "Mehrzweckhalle") {
+      buttons = `
+        <button onclick="finish('Anlass')">Anlass</button>
+        <button onclick="finish('Versammlung')">Versammlung</button>
+        <button onclick="finish('Veranstaltung')">Veranstaltung</button>`;
+    } else {
+      buttons = `
+        <button onclick="finish('Sitzung')">Sitzung</button>
+        <button onclick="finish('Kommission')">Kommission</button>
+        <button onclick="finish('Arbeitsgruppe')">Arbeitsgruppe</button>`;
+    }
+  } else {
+    if (state.resource === "Vereinslokal") {
+      buttons = `
+        <button onclick="finish('Vereinssitzung')">Vereinssitzung</button>
+        <button onclick="finish('Interne Veranstaltung')">Interne Veranstaltung</button>
+        <button onclick="finish('Vermietung')">Vermietung</button>`;
+    } else if (state.resource === "Sitzungsraum") {
+      buttons = `
+        <button onclick="finish('Vorstandssitzung')">Vorstandssitzung</button>
+        <button onclick="finish('Planung')">Planung</button>
+        <button onclick="finish('Workshop')">Workshop</button>`;
+    } else {
+      buttons = `
+        <button onclick="finish('Training')">Training</button>
+        <button onclick="finish('Kurs')">Kurs</button>
+        <button onclick="finish('Probe')">Probe</button>`;
+    }
+  }
+
+  options.innerHTML = buttons;
 }
 
-async function finish() {
-  clearOptions();
-  clearContext();
-
-  await saySequence([
-    "Die Reservation entspricht den geltenden Vorgaben.",
-    "Der Termin wird gemäss Vorgaben reserviert und dokumentiert."
-  ]);
-
+async function finish(purpose) {
+  clearOptions(); clearContext();
+  await say("Zweck erfasst: " + purpose + ".");
+  await say("Die Reservation entspricht den geltenden Vorgaben.");
+  await say("Der Termin wird gemäss Vorgaben reserviert und dokumentiert.");
   setContext("In der realen Nutzung erfolgt hier die verbindliche Buchung.");
 
   options.innerHTML = `<button onclick="startDemo()">Neue Reservation simulieren</button>`;
 }
 
 function requestDemo() {
-  window.location.href =
-    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Ablauf Resa für unsere Organisation besprechen";
+  window.location.href = "mailto:DEINEEMAIL@DOMAIN.CH?subject=Ablauf Resa für unsere Organisation besprechen";
 }
-
 function requestOffer() {
-  window.location.href =
-    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Angebot: Resa für unsere Organisation";
+  window.location.href = "mailto:DEINEEMAIL@DOMAIN.CH?subject=Angebot: Resa für unsere Organisation";
 }
-
 function requestFeedback() {
-  window.location.href =
-    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Rückmeldung zur Resa Demo";
+  window.location.href = "mailto:DEINEEMAIL@DOMAIN.CH?subject=Rückmeldung zur Resa Demo";
 }
 
 startDemo();
