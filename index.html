@@ -145,22 +145,28 @@
 
 <div class="intro">
   <h1>Resa automatisiert Raumreservationen für Gemeinden und Vereine.</h1>
-  <p>Regelbasiert, nachvollziehbar und ohne administrativen Aufwand.</p>
+  <p>Regelbasiert, nachvollziehbar und mit minimalem administrativem Aufwand.</p>
 
   <div class="boxes">
     <div class="box">
       <h3>Gemeindeverwaltung</h3>
-      <p>Automatisierte Reservationen für Gemeinderäumlichkeiten nach klar definierten Nutzungs- und Belegungsregeln.</p>
+      <p>
+        Automatisierte Reservationen für Gemeinderäumlichkeiten
+        nach klar definierten Nutzungs- und Belegungsregeln.
+      </p>
     </div>
 
     <div class="box">
       <h3>Verein</h3>
-      <p>Strukturierte Raumreservationen mit verfügbaren Zeiten, klaren Zwecken und einfachem Ablauf.</p>
+      <p>
+        Strukturierte Raumreservationen mit verfügbaren Zeiten
+        und klar definierten Nutzungszwecken.
+      </p>
     </div>
   </div>
 
   <button class="primary" onclick="document.getElementById('demo').scrollIntoView()">
-    Reservation simulieren
+    Reservation erfassen
   </button>
 </div>
 
@@ -169,7 +175,7 @@
 
   <div id="bot">
     <button class="reset" onclick="startDemo()">Von vorne beginnen</button>
-    <div class="microcopy">Startet die Demo neu.</div>
+    <div class="microcopy">Startet den Ablauf neu.</div>
 
     <div id="chat"></div>
     <div class="bot-options" id="options"></div>
@@ -230,8 +236,8 @@ async function startDemo() {
   clearContext();
 
   await say("Guten Tag.");
-  await say("Ich bearbeite Reservationen nach den geltenden Vorgaben.");
-  await say("Für welchen Bereich möchten Sie eine Reservation simulieren?");
+  await say("Ich bearbeite Reservationen nach festgelegten Regeln.");
+  await say("Für welchen Bereich möchten Sie eine Reservation erfassen?");
 
   setContext("Die Auswahl dient nur zur Darstellung des Ablaufs.");
 
@@ -245,8 +251,8 @@ async function selectDomain(domain) {
   state.domain = domain;
   clearOptions(); clearContext();
 
-  await say("Bereich gewählt: " + domain + ".");
-  await say("Bitte wählen Sie eine Ressource.");
+  await say("Bereich: " + (domain === "Gemeinde" ? "Gemeindeverwaltung" : "Verein") + ".");
+  await say("Bitte wählen Sie einen Raum.");
 
   options.innerHTML = domain === "Gemeinde" ? `
     <button onclick="selectResource('Sporthalle')">Sporthalle</button>
@@ -263,7 +269,7 @@ async function selectResource(resource) {
   state.resource = resource;
   clearOptions(); clearContext();
 
-  await say("Ressource gewählt: " + resource + ".");
+  await say("Raum gewählt: " + resource + ".");
   await say("Bitte wählen Sie einen verfügbaren Termin.");
 
   setContext("Angezeigte Zeiten sind beispielhaft.");
@@ -323,22 +329,27 @@ async function selectTime(time) {
 
 async function finish(purpose) {
   clearOptions(); clearContext();
+
   await say("Zweck erfasst: " + purpose + ".");
   await say("Die Reservation entspricht den geltenden Regeln.");
   await say("Der Termin wird reserviert und dokumentiert.");
+
   setContext("In der realen Nutzung erfolgt hier die verbindliche Buchung.");
 
-  options.innerHTML = `<button onclick="startDemo()">Neue Reservation simulieren</button>`;
+  options.innerHTML = `<button onclick="startDemo()">Neue Reservation erfassen</button>`;
 }
 
 function requestDemo() {
-  window.location.href = "mailto:DEINEEMAIL@DOMAIN.CH?subject=Ablauf Resa für unsere Organisation besprechen";
+  window.location.href =
+    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Ablauf Resa für unsere Organisation besprechen";
 }
 function requestOffer() {
-  window.location.href = "mailto:DEINEEMAIL@DOMAIN.CH?subject=Angebot: Resa für unsere Organisation";
+  window.location.href =
+    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Angebot: Resa für unsere Organisation";
 }
 function requestFeedback() {
-  window.location.href = "mailto:DEINEEMAIL@DOMAIN.CH?subject=Rückmeldung zur Resa Demo";
+  window.location.href =
+    "mailto:DEINEEMAIL@DOMAIN.CH?subject=Rückmeldung zur Resa Demo";
 }
 
 startDemo();
